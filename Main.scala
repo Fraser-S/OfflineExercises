@@ -82,13 +82,16 @@ object Main {
 
   def filledDiamond(size: Int): Unit ={
     def drawLine(size: Int, space: Int): String = {
-      val filled: Int = size-(space*2)
-      var line: String = ""
+      val filled: Int = size-(space*2)//work out how much of the diamond is solid
+      var line: String = ""//create the string for the line
+
+      //loop for the entire row
       for(i<-0 until size){
+        //if next char is a blank space
         if(i < space || i>= space+filled){
-          line+=" "
+          line+=" "//add space
         } else {
-          line+="a"
+          line+="a"//add char
         }
       }
       line+="\n"
@@ -96,13 +99,14 @@ object Main {
     }
 
     def iter(index: Int, diamond: String, blankSpace: Int, size: Int, decrease: Boolean): String = index match{
-      case a if size == index => diamond
-      case 0 => var space = (size-1)/2; iter(index+1, diamond+drawLine(size, space), space-1, size, true)
-      case a if blankSpace == 0 => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace+1, size, false)
-      case a if decrease == true => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace-1, size, true)
-      case a if decrease == false => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace+1, size, false)
+      case a if size == index => diamond//made full diamond, exit
+      case 0 => var space = (size-1)/2; iter(index+1, diamond+drawLine(size, space), space-1, size, true)//for the first one work out where the middle is
+      case a if blankSpace == 0 => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace+1, size, false)//if in the middle, start adding blank space again
+      case a if decrease == true => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace-1, size, true)//if top half remove blank space for next line
+      case a if decrease == false => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace+1, size, false)//if on the bottom half add blank space for next line
     }
 
+    //ensure that the size of the diamond is odd
     if(size%2 == 0){
       println(iter(0, "", 0, size+1, true))
     } else{
@@ -112,37 +116,39 @@ object Main {
 
   def hollowDiamond(size: Int): Unit ={
     def drawLine(size: Int, space: Int): String = {
-      val emptySpace = (size-(space*2))-2
+      val emptySpace = (size-(space*2))-2 //calculate how much empty space in the diamond
 
-      var line: String = ""
+      var line: String = "" //start the string
 
-      for(i<-0 until space){ line += " " }
+      for(i<-0 until space){ line += " " } //for the left side add the gaps
 
-      line+="a"
+      line+="a" //add the first char
 
-      for(i<-0 until emptySpace){line += " "}
+      for(i<-0 until emptySpace){line += " "}//add space for the centre of the diamond
 
-      if(size-(space*2)>1) line+="a"
+      if(size-(space*2)>1) line+="a"//if it has two sides add the second char
 
-      for(i<-0 until space){ line += " " }
-      line+="\n"
-      line
+      for(i<-0 until space){ line += " " }//for the right side add the gaps
+
+      line+="\n"//end the line
+      line//return the string
     }
 
+    //iterator
     def iter(index: Int, diamond: String, blankSpace: Int, size: Int, decrease: Boolean): String = index match{
-      case a if size == index => diamond
-      case 0 => var space = (size-1)/2; iter(index+1, diamond+drawLine(size, space), space-1, size, true)
-      case a if blankSpace == 0 => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace+1, size, false)
-      case a if decrease == true => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace-1, size, true)
-      case a if decrease == false => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace+1, size, false)
+      case a if size == index => diamond//made full diamond, exit
+      case 0 => var space = (size-1)/2; iter(index+1, diamond+drawLine(size, space), space-1, size, true)//for the first one work out where the middle is
+      case a if blankSpace == 0 => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace+1, size, false)//if in the middle, start adding blank space again
+      case a if decrease == true => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace-1, size, true)//if top half remove blank space for next line
+      case a if decrease == false => iter(index+1, diamond+drawLine(size, blankSpace), blankSpace+1, size, false)//if on the bottom half add blank space for next line
     }
 
+    //if its an even number add 1 to make it odd, keeps the program working correctly
     if(size%2 == 0){
       println(iter(0, "", 0, size+1, true))
     } else{
       println(iter(0, "", 0, size, true))
     }
-
   }
 
   def main(args:Array[String]): Unit = {
@@ -187,9 +193,9 @@ object Main {
     println(stringClean("Hello"))
 
     println("\nTask 9")
-    filledDiamond(12)
+    filledDiamond(5)
 
     println("\nTask 10")
-    hollowDiamond(9)
+    hollowDiamond(10)
   }
 }
