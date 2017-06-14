@@ -112,16 +112,19 @@ object Main {
 
   def hollowDiamond(size: Int): Unit ={
     def drawLine(size: Int, space: Int): String = {
-      val filled: Int = size-(space*2)
-      val emptySpace = filled-2
+      val emptySpace = (size-(space*2))-2
+
       var line: String = ""
-      for(i<-0 until size){
-        if(i < space || i>= space+filled){
-          line+=" "
-        } else {
-          line+="a"
-        }
-      }
+
+      for(i<-0 until space){ line += " " }
+
+      line+="a"
+
+      for(i<-0 until emptySpace){line += " "}
+
+      if(size-(space*2)>1) line+="a"
+
+      for(i<-0 until space){ line += " " }
       line+="\n"
       line
     }
@@ -184,9 +187,9 @@ object Main {
     println(stringClean("Hello"))
 
     println("\nTask 9")
-    filledDiamond(9)
+    filledDiamond(12)
 
     println("\nTask 10")
-    //hollowDiamond(9)
+    hollowDiamond(9)
   }
 }
